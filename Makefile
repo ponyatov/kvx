@@ -10,6 +10,7 @@ TMP   = $(CWD)/tmp
 SRC   = $(TMP)/src
 BR    = $(CWD)/$(BUILDROOT)
 CROSS = $(CWD)/cross
+ROOT  = $(CWD)/root
 
 default: buildroot
 #dirs gz 
@@ -21,7 +22,7 @@ WGET = wget -c -P $(GZ)
 	
 gz: $(GZ)/$(BUILDROOT_VER).tar.gz
 
-buildroot: $(BR)/README $(TMP)/.config
+buildroot: $(BR)/README $(TMP)/.config $(ROOT)/etc/about
 	cd $(BR) ; make menuconfig O=$(TMP)
 #	make defconfig BUSYBOX_CONFIG_FILE=qemu.defconfig  &&\
 #	
@@ -31,6 +32,9 @@ $(BR)/README: $(GZ)/$(BUILDROOT_VER).tar.gz
 	tar zx < $< && touch $@ 
 $(GZ)/$(BUILDROOT_VER).tar.gz:
 	$(WGET) https://github.com/buildroot/buildroot/archive/$(BUILDROOT_VER).tar.gz
+	
+$(ROOT)/etc/about: README.md
+	cp $< $@
 
 $(TMP)/.config: qemu.defconfig
 	cat $^ > $@
@@ -40,4 +44,3 @@ $(TMP)/.config: qemu.defconfig
 	echo BR2_UCLIBC_CONFIG_FRAGMENT_FILES=\"$(CWD)/ulibc.config\" >> $@
 	echo BR2_TARGET_GENERIC_HOSTNAME=\"$(APP)_$(HW)\" >> $@
 	echo BR2_TARGET_GENERIC_ISSUE=\"kvx build: $(shell date +%d%m%y)\" >> $@
-	
