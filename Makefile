@@ -12,8 +12,7 @@ BR    = $(CWD)/$(BUILDROOT)
 CROSS = $(CWD)/cross
 ROOT  = $(CWD)/root
 
-default: buildroot
-#dirs gz 
+default: dirs gz buildroot
 
 dirs:
 	mkdir -p $(GZ) $(TMP) $(SRC) $(BR) $(CROSS)
@@ -23,7 +22,8 @@ WGET = wget -c -P $(GZ)
 gz: $(GZ)/$(BUILDROOT_VER).tar.gz
 
 buildroot: $(BR)/README $(TMP)/.config $(ROOT)/etc/about
-	cd $(BR) ; make menuconfig O=$(TMP) && make
+	cd $(BR) ; make menuconfig O=$(TMP)
+	cd $(TMP) ; make
 $(BR)/README: $(GZ)/$(BUILDROOT_VER).tar.gz
 	tar zx < $< && touch $@ 
 $(GZ)/$(BUILDROOT_VER).tar.gz:
