@@ -33,3 +33,5 @@ $(TMP)/.config: qemu.defconfig
 	cat $^ > $@
 	echo BR2_DL_DIR=\"$(GZ)\" >> $@
 	echo BR2_HOST_DIR=\"$(CROSS)\" >> $@
+	echo BR2_CCACHE_DIR=\"$(TMP)/ccache\" >> $@
+	echo BR2_UCLIBC_CONFIG_FRAGMENT_FILES=\"$(CWD)/ulibc.config\" >> $@
