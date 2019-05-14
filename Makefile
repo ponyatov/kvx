@@ -23,11 +23,7 @@ WGET = wget -c -P $(GZ)
 gz: $(GZ)/$(BUILDROOT_VER).tar.gz
 
 buildroot: $(BR)/README $(TMP)/.config $(ROOT)/etc/about
-	cd $(BR) ; make menuconfig O=$(TMP)
-#	make defconfig BUSYBOX_CONFIG_FILE=qemu.defconfig  &&\
-#	
-#	list-defconfigs
-#	menuconfig
+	cd $(BR) ; make menuconfig O=$(TMP) && make
 $(BR)/README: $(GZ)/$(BUILDROOT_VER).tar.gz
 	tar zx < $< && touch $@ 
 $(GZ)/$(BUILDROOT_VER).tar.gz:
