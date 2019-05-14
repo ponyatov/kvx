@@ -44,3 +44,7 @@ $(TMP)/.config: qemu.defconfig
 	echo BR2_UCLIBC_CONFIG_FRAGMENT_FILES=\"$(CWD)/ulibc.config\" >> $@
 	echo BR2_TARGET_GENERIC_HOSTNAME=\"$(APP)_$(HW)\" >> $@
 	echo BR2_TARGET_GENERIC_ISSUE=\"kvx build: $(shell date +%d%m%y)\" >> $@
+	echo BR2_ROOTFS_OVERLAY=\"$(ROOT)\" >> $@
+	echo BR2_LINUX_KERNEL_CUSTOM_CONFIG_FILE=\"$(CWD)/kernel.config\" >> $@
+	
+
