@@ -1,3 +1,6 @@
+HW  ?= i686
+APP ?= hello
+
 BUILDROOT_VER = 2019.05-rc1
 BUILDROOT = buildroot-$(BUILDROOT_VER)
 
@@ -35,3 +38,6 @@ $(TMP)/.config: qemu.defconfig
 	echo BR2_HOST_DIR=\"$(CROSS)\" >> $@
 	echo BR2_CCACHE_DIR=\"$(TMP)/ccache\" >> $@
 	echo BR2_UCLIBC_CONFIG_FRAGMENT_FILES=\"$(CWD)/ulibc.config\" >> $@
+	echo BR2_TARGET_GENERIC_HOSTNAME=\"$(APP)_$(HW)\" >> $@
+	echo BR2_TARGET_GENERIC_ISSUE=\"kvx build: $(shell date +%d%m%y)\" >> $@
+	
