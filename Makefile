@@ -13,4 +13,4 @@ WGET = wget -c -P $(GZ)
 gz: $(GZ)/$(BUILDROOT_VER).tar.gz
 
 $(GZ)/$(BUILDROOT_VER).tar.gz:
-	echo $(WGET) https://github.com/buildroot/buildroot/archive/$(BUILDROOT_VER).tar.gz
+	$(WGET) https://github.com/buildroot/buildroot/archive/$(BUILDROOT_VER).tar.gz
